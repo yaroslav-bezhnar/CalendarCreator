@@ -3,7 +3,7 @@
 namespace CalendarCreator.Core.Exceptions
 {
     /// <summary>
-    ///     Represents errors that occurs when creating a calendar.
+    ///     Represents errors that occur when creating a calendar.
     /// </summary>
     public class CalendarAbortException : Exception
     {
