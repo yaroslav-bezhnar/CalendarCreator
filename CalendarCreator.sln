@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarCreator.Core", "CalendarCreator.Core\CalendarCreator.Core.csproj", "{9A66DCB0-DED6-4D8D-986F-29B01F66114E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalendarCreator.Core", "CalendarCreator.Core\CalendarCreator.Core.csproj", "{9A66DCB0-DED6-4D8D-986F-29B01F66114E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarCreator.ConsoleApp", "CalendarCreator.ConsoleApp\CalendarCreator.ConsoleApp.csproj", "{13067FBA-AC41-4328-B920-E4DB8BE4D261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalendarCreator.ConsoleApp", "CalendarCreator.ConsoleApp\CalendarCreator.ConsoleApp.csproj", "{13067FBA-AC41-4328-B920-E4DB8BE4D261}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

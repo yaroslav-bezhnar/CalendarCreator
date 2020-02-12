@@ -335,12 +335,12 @@ namespace CalendarCreator.Core
         {
             if ( year > 0 && year <= 9999 ) return;
 
-            throw new CalendarAbortException("Incorrect year.", new ArgumentOutOfRangeException( nameof( year ) ) );
+            throw new CalendarAbortException( "Incorrect year.", new ArgumentOutOfRangeException( nameof( year ) ) );
         }
 
         private static void assertDayOfWeek( DayOfWeek day )
         {
-            if( day >= DayOfWeek.Sunday && day <= DayOfWeek.Saturday ) return;
+            if ( day >= DayOfWeek.Sunday && day <= DayOfWeek.Saturday ) return;
 
             throw new CalendarAbortException( $"Unknown day of week '{day}'" );
         }
