@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CalendarCreator.Core.Attributes;
+using CalendarCreator.Core.Exceptions;
 using CalendarCreator.Core.Helpers;
 
 namespace CalendarCreator.Core
@@ -48,13 +49,18 @@ namespace CalendarCreator.Core
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Calendar" /> class
+        ///     Initializes a new instance of the <see cref="Calendar" /> class.
         /// </summary>
         /// <param name="year">Year of the calendar.</param>
         /// <param name="firstDayOfYear">First day of the year.</param>
         /// <param name="firstDayOfWeek">First day of the week.</param>
+        /// <exception cref="CalendarAbortException" />
         public Calendar( int year, DayOfWeek firstDayOfYear, DayOfWeek firstDayOfWeek = DayOfWeek.Sunday )
         {
+            assertYear( year );
+            assertDayOfWeek( firstDayOfYear );
+            assertDayOfWeek( firstDayOfWeek );
+
             Year = year;
             FirstDayOfYear = firstDayOfYear;
             FirstDayOfWeek = firstDayOfWeek;
@@ -87,11 +93,14 @@ namespace CalendarCreator.Core
         /// <summary>
         ///     The first day of the week.
         /// </summary>
+        /// <exception cref="CalendarAbortException" />
         public DayOfWeek FirstDayOfWeek
         {
             get => _firstDayOfWeek;
             private set
             {
+                assertDayOfWeek( value );
+
                 _firstDayOfWeek = value;
                 _lastDayOfWeek = getLastDayOfWeek();
             }
@@ -109,6 +118,7 @@ namespace CalendarCreator.Core
         /// <summary>
         ///     Create the calendar.
         /// </summary>
+        /// <exception cref="CalendarAbortException" />
         public void Create()
         {
             produceCalendar();
@@ -133,7 +143,7 @@ namespace CalendarCreator.Core
         ///     Gets calendar for the month.
         /// </summary>
         /// <param name="month">The month for which get a calendar.</param>
-        /// <returns>List of the <see cref="DayOfWeek" /></returns>
+        /// <returns>List of the <see cref="DayOfWeek" />.</returns>
         public IList<DayOfWeek> GetMonthCalendar( Month month ) => _calendarDictionary[month];
 
         /// <summary>
@@ -176,11 +186,52 @@ namespace CalendarCreator.Core
 
         #endregion
 
+        #region Public Static Methods
+
+        /// <summary>
+        ///     Checks whether a given year is a leap year.
+        /// </summary>
+        /// <param name="year">The year to check.</param>
+        /// <returns>'True' if year is a leap year; otherwise 'False'.</returns>
+        /// <exception cref="CalendarAbortException" />
+        public static bool IsLeapYear( int year )
+        {
+            assertYear( year );
+
+            if ( year % 4 != 0 )
+                return false;
+
+            if ( year % 100 == 0 )
+                return year % 400 == 0;
+
+            return true;
+        }
+
+        /// <summary>
+        ///     Transforms <see cref="System.DayOfWeek"/> value to <see cref="CalendarCreator.Core.DayOfWeek"/>.
+        /// </summary>
+        /// <param name="dayOfWeek">The <see cref="System.DayOfWeek"/> value to be transformed.</param>
+        /// <returns>The <see cref="CalendarCreator.Core.DayOfWeek"/> transformed from a <see cref="System.DayOfWeek"/> value.</returns>
+        /// <exception cref="CalendarAbortException" />
+        public static DayOfWeek Transform( System.DayOfWeek dayOfWeek )
+        {
+            assertDayOfWeek( dayOfWeek );
+
+            var transformedDay = (DayOfWeek) (int) dayOfWeek + 1;
+
+            assertDayOfWeek( transformedDay );
+
+            return transformedDay;
+        }
+
+        #endregion
+
         #region Private Methods
 
         /// <summary>
         ///     Creates the calendar.
         /// </summary>
+        /// <exception cref="CalendarAbortException" />
         private void produceCalendar()
         {
             var currentDay = FirstDayOfYear;
@@ -225,6 +276,7 @@ namespace CalendarCreator.Core
         /// </summary>
         /// <param name="currentDay">Current day of the week.</param>
         /// <returns>Next day of the week.</returns>
+        /// <exception cref="CalendarAbortException" />
         private DayOfWeek getNextDayOfWeek( DayOfWeek currentDay )
         {
             var currentIndex = _orderedDaysOfWeek.IndexOf( currentDay );
@@ -235,7 +287,11 @@ namespace CalendarCreator.Core
                 nextIndex = 0;
             }
 
-            return _orderedDaysOfWeek[nextIndex];
+            var nextDay = _orderedDaysOfWeek[nextIndex];
+
+            assertDayOfWeek( nextDay );
+
+            return nextDay;
         }
 
         /// <summary>
@@ -243,11 +299,12 @@ namespace CalendarCreator.Core
         /// </summary>
         /// <param name="year">The year to get months with the number of days.</param>
         /// <returns>Dictionary of the <see cref="Month" /> as key and the number of days as value.</returns>
+        /// <exception cref="CalendarAbortException" />
         private static IDictionary<Month, int> getMonthsWithDays( int year ) =>
             new Dictionary<Month, int>
             {
                 { Month.January, 31 },
-                { Month.February, isLeapYear( year ) ? 29 : 28 },
+                { Month.February, IsLeapYear( year ) ? 29 : 28 },
                 { Month.March, 31 },
                 { Month.April, 30 },
                 { Month.May, 31 },
@@ -270,23 +327,29 @@ namespace CalendarCreator.Core
             return lastDay == 0 ? DayOfWeek.Saturday : (DayOfWeek) lastDay;
         }
 
-        /// <summary>
-        ///     Checks whether a given year is a leap year.
-        /// </summary>
-        /// <param name="year">The year to check.</param>
-        /// <returns>'True' if year is a leap year; otherwise 'False'.</returns>
-        private static bool isLeapYear( int year )
+        #endregion
+
+        #region Private Assert Methods
+
+        private static void assertYear( int year )
         {
-            if ( year < 1 || year > 9999 )
-                throw new ArgumentOutOfRangeException( nameof( year ) );
+            if ( year > 0 && year <= 9999 ) return;
 
-            if ( year % 4 != 0 )
-                return false;
+            throw new CalendarAbortException("Incorrect year.", new ArgumentOutOfRangeException( nameof( year ) ) );
+        }
 
-            if ( year % 100 == 0 )
-                return year % 400 == 0;
+        private static void assertDayOfWeek( DayOfWeek day )
+        {
+            if( day >= DayOfWeek.Sunday && day <= DayOfWeek.Saturday ) return;
 
-            return true;
+            throw new CalendarAbortException( $"Unknown day of week '{day}'" );
+        }
+
+        private static void assertDayOfWeek( System.DayOfWeek day )
+        {
+            if ( day >= System.DayOfWeek.Sunday && day <= System.DayOfWeek.Saturday ) return;
+
+            throw new CalendarAbortException( $"Unknown day of week '{day}'" );
         }
 
         #endregion
