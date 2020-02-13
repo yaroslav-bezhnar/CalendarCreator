@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalendarCreator.Core", "Cal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalendarCreator.ConsoleApp", "CalendarCreator.ConsoleApp\CalendarCreator.ConsoleApp.csproj", "{13067FBA-AC41-4328-B920-E4DB8BE4D261}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarCreator.Tests", "CalendarCreator.Tests\CalendarCreator.Tests.csproj", "{42043554-AD23-426D-9187-0CB6C9E7B38B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalendarCreator.Tests", "CalendarCreator.Tests\CalendarCreator.Tests.csproj", "{42043554-AD23-426D-9187-0CB6C9E7B38B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
