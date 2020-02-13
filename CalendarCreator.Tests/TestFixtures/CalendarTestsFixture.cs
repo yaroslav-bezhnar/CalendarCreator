@@ -6,13 +6,20 @@ namespace CalendarCreator.Tests
 {
     public class CalendarTestsFixture : IDisposable
     {
-        private readonly int _year = 2008;
-        private readonly DayOfWeek _firstYearDay = DayOfWeek.Tuesday;
+        #region Fields
 
-        public CalendarTestsFixture()
-        {
-            Calendar = new Calendar(_year, _firstYearDay);
-        }
+        private readonly DayOfWeek _firstYearDay = DayOfWeek.Tuesday;
+        private readonly int _year = 2008;
+
+        #endregion
+
+        #region Constructors
+
+        public CalendarTestsFixture() => Calendar = new Calendar( _year, _firstYearDay );
+
+        #endregion
+
+        #region Properties
 
         public Calendar Calendar
         {
@@ -20,9 +27,15 @@ namespace CalendarCreator.Tests
             private set;
         }
 
+        #endregion
+
+        #region IDisposable Members
+
         public void Dispose()
         {
             Calendar = null;
         }
+
+        #endregion
     }
 }
