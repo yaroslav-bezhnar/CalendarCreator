@@ -13,10 +13,7 @@ namespace CalendarCreator.Core.Attributes
         ///     Initialize a new instance of the <see cref="ShortNameAttribute" /> class.
         /// </summary>
         /// <param name="shortName">Short name.</param>
-        public ShortNameAttribute(string shortName)
-        {
-            ShortName = shortName;
-        }
+        public ShortNameAttribute( string shortName ) => ShortName = shortName;
 
         #endregion
 

@@ -136,7 +136,7 @@ namespace CalendarCreator.ConsoleApp
 
         #endregion
 
-        #region DLL Import
+        #region DLL Imports
 
         [DllImport( "shell32.dll", SetLastError = true )]
         private static extern IntPtr CommandLineToArgvW( [MarshalAs( UnmanagedType.LPWStr )] string lpCmdLine, out int pNumArgs );

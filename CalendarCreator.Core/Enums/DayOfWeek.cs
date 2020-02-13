@@ -10,43 +10,43 @@ namespace CalendarCreator.Core
         /// <summary>
         ///     Represents a Sunday.
         /// </summary>
-        [ShortName("Sun")]
+        [ShortName( "Sun" )]
         Sunday = 1,
 
         /// <summary>
         ///     Represents a Monday.
         /// </summary>
-        [ShortName("Mon")]
+        [ShortName( "Mon" )]
         Monday = 2,
 
         /// <summary>
         ///     Represents a Tuesday.
         /// </summary>
-        [ShortName("Tue")]
+        [ShortName( "Tue" )]
         Tuesday = 3,
 
         /// <summary>
         ///     Represents a Wednesday.
         /// </summary>
-        [ShortName("Wed")]
+        [ShortName( "Wed" )]
         Wednesday = 4,
 
         /// <summary>
         ///     Represents a Thursday.
         /// </summary>
-        [ShortName("Thu")]
+        [ShortName( "Thu" )]
         Thursday = 5,
 
         /// <summary>
         ///     Represents a Friday.
         /// </summary>
-        [ShortName("Fri")]
+        [ShortName( "Fri" )]
         Friday = 6,
 
         /// <summary>
         ///     Represents a Saturday.
         /// </summary>
-        [ShortName("Sat")]
+        [ShortName( "Sat" )]
         Saturday = 7
     }
 }
